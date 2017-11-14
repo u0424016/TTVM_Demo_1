@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.*;
 
 import org.json.JSONObject;
+import org.json.JSONException;
 
 
 public class Pay extends AppCompatActivity {
@@ -44,15 +45,28 @@ public class Pay extends AppCompatActivity {
             System.out.print(scanContent);
 
 
-//            scanContent = "{\n" +
-//                    "                    \"MacAddress\": \"DC:36:99:F8:D2:3C\",\n" +
-//                    "                    \"Price\": 50\n" +
-//                    "}";
+            String str = "{\n" +
+                    "                    \"MacAddress\": \"DC:36:99:F8:D2:3C\",\n" +
+                    "                    \"Price\": 50\n" +
+                    "}";
+
+            try{
+                JSONObject jsonObject = new JSONObject(str);
+
+                String JMacAddress = jsonObject.getString("MacAddress");
+                int JPrice = jsonObject.getInt("Price");
+                enter = JPrice;
 
 
-//            enter = Integer.parseInt(scanContent);
-//            String temp = "金額為"+enter+"元";
-            textView_enter.setText(scanContent);
+            }
+            catch(JSONException e) {
+                e.printStackTrace();
+
+            }
+
+
+            String temp = "金額為"+enter+"元";
+            textView_enter.setText(temp);
             button_yes.setVisibility(View.VISIBLE);
 
 
